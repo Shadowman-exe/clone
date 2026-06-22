@@ -844,6 +844,22 @@
       display: none !important;
     }
   }
+  /* Fix nav alignment and width on mobile (match footer) */
+  @media (max-width: 809px) {
+    nav, .framer-a4ey5c-container nav {
+      width: 100vw !important;
+      padding-left: 16px !important;
+      padding-right: 16px !important;
+      box-sizing: border-box !important;
+      justify-content: space-between !important;
+    }
+    
+    /* Ensure the pill only takes as much space as it needs for the burger */
+    .framer-7pi826 {
+      width: auto !important;
+      min-width: 60px !important;
+    }
+  }
 </style>
 <script id="clone-mobile-engine">
 (function() {
@@ -1078,6 +1094,8 @@
 
 
 </body></html>
+
+
 
 
 
