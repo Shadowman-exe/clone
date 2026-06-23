@@ -610,8 +610,8 @@
     .framer-7pi826.mobile-menu-open .framer-r3szl6 {
       display: flex !important;
       flex-direction: column !important;
-      gap: 16px !important;
-      padding-top: 16px !important;
+      gap: 8px !important;
+      padding: 8px 0 !important;
       width: 100% !important;
       align-items: center !important;
     }
@@ -630,6 +630,11 @@
       display: flex !important;
       flex-direction: column !important;
       align-items: center !important;
+    }
+
+    .framer-7pi826.mobile-menu-open .framer-q8qs3f {
+      gap: 8px !important;
+      justify-content: flex-start !important;
     }
 
     .framer-r3szl6 a,
@@ -844,16 +849,47 @@
        linksContainer.appendChild(clone);
     }
 
+    var menuOverrideAnims = [];
+    function applyMenuStyles(open) {
+      menuOverrideAnims.forEach(function(a) { a.cancel(); });
+      menuOverrideAnims = [];
+      if (open) {
+        var overrides = [
+          { backgroundColor: 'rgba(23, 23, 23, 0.95)' },
+          { borderTopLeftRadius: '20px' },
+          { borderTopRightRadius: '20px' },
+          { borderBottomLeftRadius: '20px' },
+          { borderBottomRightRadius: '20px' },
+          { paddingTop: '12px' },
+          { paddingBottom: '12px' },
+          { paddingLeft: '24px' },
+          { paddingRight: '24px' },
+          { backdropFilter: 'blur(20px)' },
+          { borderTopColor: 'rgba(255, 255, 255, 0.1)' },
+          { borderBottomColor: 'rgba(255, 255, 255, 0.1)' },
+          { borderLeftColor: 'rgba(255, 255, 255, 0.1)' },
+          { borderRightColor: 'rgba(255, 255, 255, 0.1)' },
+        ];
+        overrides.forEach(function(kf) {
+          var a = navContainer.animate([kf, kf], { duration: 1, fill: 'forwards', composite: 'replace' });
+          a.finish();
+          menuOverrideAnims.push(a);
+        });
+      }
+    }
+
     burgerBtn.addEventListener('click', function(e) {
       e.preventDefault();
       var isOpen = navContainer.classList.toggle('mobile-menu-open');
       burgerBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      applyMenuStyles(isOpen);
     });
 
     var links = linksContainer.querySelectorAll('a');
     links.forEach(function(link) {
       link.addEventListener('click', function() {
         navContainer.classList.remove('mobile-menu-open');
+        applyMenuStyles(false);
       });
     });
   }
